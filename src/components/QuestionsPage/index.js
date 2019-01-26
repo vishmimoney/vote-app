@@ -50,7 +50,7 @@ class QuestionsPage extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return state;
+    return { questions: state.questions };
 };
 
 export default connect(mapStateToProps, { getQuestions })(QuestionsPage);

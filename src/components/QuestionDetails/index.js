@@ -1,10 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getQuestionDetails } from '../../actions';
+import PropTypes from 'prop-types';
+import { getQuestionDetails, selectChoice } from '../../actions';
+import Choice from './Choice';
+import styled from 'styled-components';
 
+const StyledQuestionText = styled.h6`
+    padding: 10px 0;
+`;
+
+const StyledChoiceCollection = styled.div`
+     border: none;
+`
+const StyledActionPanel = styled.div`
+     margin-bottom: 40px !important;
+`
 class QuestionDetails extends Component {
+
     componentDidMount() {
         this.props.getQuestionDetails(this.props.id);
+    }
+
+    onSelectChoice(choiceIndex){
+        this.props.selectChoice(choiceIndex);
     }
 
     render() {
@@ -14,51 +32,49 @@ class QuestionDetails extends Component {
                 <div className="divider"></div>
                 <div className="section">
                     <h5>Question:</h5>
-                    <h6 className="question-details-question-text">{this.props.questionDetails.question}</h6>
+                    <StyledQuestionText>{this.props.questionDetails.question}</StyledQuestionText>
                 </div>
 
                 <div className="section">
                     <h5>Choose your answer:</h5>
                 </div>
-                <div className="row collection question-details-choice-collection">
+                <StyledChoiceCollection className="row collection">
                     {
                         this.props.questionDetails.choices && this.props.questionDetails.choices.map((elem, i) => {
                             return (
-                                <div className="row collection-item question-details-choice-row" key={i}>
-                                    <div className="col m5 s6">{elem.choice}</div>
-                                    <div className="col m2 s3">{elem.votes} Votes</div>
-                                    <div className="col m2 s3">{Math.round((elem.votes / this.props.totalVotes) * 100)}%</div>
-                                    <div className="col m3 s12">
-                                        <div className="progress question-details-choice-vote-percent">
-                                            <div className="determinate" style={{ width: `${Math.round((elem.votes / this.props.totalVotes) * 100)}%` }}></div>
-                                        </div>
-                                    </div>
-                                </div>
+                               <Choice 
+                               choice={elem.choice}
+                               votes={elem.votes}
+                               votePercentage={elem.votePercent}
+                               onSelect={this.onSelectChoice.bind(this, i)}
+                               selected={elem.selected}         
+                               key={i}
+                               ></Choice>
                             );
                         })
                     }
-                </div>
-                <div className="col m12 center question-details-action-panel">
+                </StyledChoiceCollection>
+                <StyledActionPanel className="col m12 center">
                     <a className="white-text  waves-effect waves-light btn">
                         <i className="material-icons left">save</i>
                         Save vote
                 </a>
-                </div>
+                </StyledActionPanel>
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => {
-    const questionData = { questionDetails: state.questionDetails };
-
-    if (questionData.questionDetails.choices) {
-        questionData.totalVotes = state.questionDetails.choices.reduce(
-            (result, choice) => result + choice.votes,
-            0);
-    }
-
-    return questionData;
+QuestionDetails.propTypes = {
+    questionDetails: PropTypes.object.isRequired
 }
 
-export default connect(mapStateToProps, { getQuestionDetails })(QuestionDetails);
+QuestionDetails.defaultProps = {
+    questionDetails: {}
+}
+
+const mapStateToProps = (state) => {
+    return { questionDetails: state.questionDetails };
+}
+
+export default connect(mapStateToProps, { getQuestionDetails, selectChoice })(QuestionDetails);

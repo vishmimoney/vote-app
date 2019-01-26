@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 const StyledCard = styled.div`
     min-height: 300px !important;
+    cursor: pointer
 `;
 
 class QuestionCard extends Component {
@@ -18,11 +19,10 @@ class QuestionCard extends Component {
     }
 
     render() {
-        {
-            if (this.state.redirect) {
-                return <Redirect push to={this.props.url} />;
-            }
+        if (this.state.redirect) {
+            return <Redirect push to={this.props.url} />;
         }
+        
         return (
             <StyledCard className="col s6 m4" onClick={this.selectQuestion} >
                 <div className="card cyan darken-4 z-depth-5">

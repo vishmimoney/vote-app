@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import questionReducer from '../reducers';
+import rootReducer from '../reducers';
 
-export default createStore(questionReducer, applyMiddleware(thunk));
+export default createStore(rootReducer, applyMiddleware(thunk));
 
 
 
