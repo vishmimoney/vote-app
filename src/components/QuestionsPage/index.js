@@ -10,8 +10,6 @@ const StyledNewButton = styled.a`
         margin-top: 32px;
 }`;
 
-
-
 class QuestionsPage extends Component {
 
     componentDidMount() {
@@ -33,12 +31,13 @@ class QuestionsPage extends Component {
                 </div>
                 <div className="row">
                     {
-                        this.props.questions.map(({ question, published_at, choices }, i) => {
+                        this.props.questions.map(({ question, published_at, choices, url }, i) => {
                             return (
                                 <QuestionCard 
-                                    question={question} 
+                                    question={question}
                                     timestamp={moment(published_at).format('MMMM Do YYYY, h:mm:ss a')} 
-                                    choices={choices.length} 
+                                    choices={choices.length}
+                                    url={url}
                                     key={i}>
                                 </QuestionCard>
                             );
@@ -50,8 +49,8 @@ class QuestionsPage extends Component {
     }
 }
 
-const mapStateToProps = ({ questions }) => {
-    return { questions };
+const mapStateToProps = (state) => {
+    return state;
 };
 
 export default connect(mapStateToProps, { getQuestions })(QuestionsPage);
