@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getQuestions } from '../../actions';
 import styled from 'styled-components';
+import QuestionCard from './QuestionCard';
+import moment from 'moment';
 
 const StyledNewButton = styled.a`
    @media only screen and (min-width: 600px) {
         margin-top: 32px;
 }`;
 
-const StyledCard = styled.div`
-    min-height: 300px !important;
-`;
+
 
 class QuestionsPage extends Component {
 
@@ -35,23 +35,12 @@ class QuestionsPage extends Component {
                     {
                         this.props.questions.map(({ question, published_at, choices }, i) => {
                             return (
-                                <StyledCard className="col s6 m4" key={i}>
-                                    <div className="card cyan darken-4 z-depth-5">
-                                        <div className="card-content white-text questions-page-new-question-card">
-                                            <div className="card-title">{question}</div>
-                                            <div className="card-body">
-                                                <div className="row">
-                                                    <div className="col m12">{published_at}</div>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col m12">
-                                                        <div className="chip">{choices.length} Choices</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </StyledCard>
+                                <QuestionCard 
+                                    question={question} 
+                                    timestamp={moment(published_at).format('MMMM Do YYYY, h:mm:ss a')} 
+                                    choices={choices.length} 
+                                    key={i}>
+                                </QuestionCard>
                             );
                         })
                     }
