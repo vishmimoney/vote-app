@@ -33,9 +33,9 @@ class QuestionsPage extends Component {
                     {
                         this.props.questions.map(({ question, published_at, choices, url }, i) => {
                             return (
-                                <QuestionCard 
+                                <QuestionCard
                                     question={question}
-                                    timestamp={moment(published_at).format('MMMM Do YYYY, h:mm:ss a')} 
+                                    timestamp={moment(published_at).format('MMMM Do YYYY, h:mm:ss a')}
                                     choices={choices.length}
                                     url={url}
                                     key={i}>

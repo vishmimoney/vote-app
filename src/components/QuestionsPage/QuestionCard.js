@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { getQuestionDetails } from '../../actions';
+import { Redirect } from 'react-router-dom';
 
 const StyledCard = styled.div`
     min-height: 300px !important;
@@ -10,16 +9,22 @@ const StyledCard = styled.div`
 class QuestionCard extends Component {
     constructor(props) {
         super(props);
+        this.state = { redirect: false };
         this.selectQuestion = this.selectQuestion.bind(this);
     }
 
     selectQuestion() {
-        this.props.getQuestionDetails(this.props.url);
+        this.setState({ redirect: true });
     }
 
     render() {
+        {
+            if (this.state.redirect) {
+                return <Redirect push to={this.props.url} />;
+            }
+        }
         return (
-            <StyledCard className="col s6 m4"  onClick={this.selectQuestion} >
+            <StyledCard className="col s6 m4" onClick={this.selectQuestion} >
                 <div className="card cyan darken-4 z-depth-5">
                     <div className="card-content white-text">
                         <div className="card-title">{this.props.question}</div>
@@ -40,4 +45,4 @@ class QuestionCard extends Component {
     }
 }
 
-export default connect(null, {getQuestionDetails})(QuestionCard);
+export default QuestionCard;

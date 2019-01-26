@@ -19,9 +19,9 @@ export const getQuestions = () => {
     }
 }
 
-export const getQuestionDetails = (questionUrl) => {
+export const getQuestionDetails = (id) => {
     return (dispatch) => {
-        axios.get(`${apiRootPath}${questionUrl}`)
+        axios.get(`${apiRootPath}/questions/${id}`)
         .then((res) => {
             dispatch({
                 type: GET_QUESTION_DETAILS,
