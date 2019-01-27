@@ -67,8 +67,8 @@ const questionDetailsReducer = (state = initialState.questionDetails, action) =>
             const updatedVotes = state.choices.map(choice => {
                 if(choice.url === action.vote.url) {
                      choice.votes = action.vote.votes;
-                     choice.votePercent = (totalVotes && Math.round((choice.votes / totalVotes) * 100)) || 0;
                 }
+                choice.votePercent = (totalVotes && Math.round((choice.votes / (totalVotes + 1)) * 100)) || 0;
         
                 return choice;
             });
