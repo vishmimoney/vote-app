@@ -49,13 +49,13 @@ class QuestionCard extends Component {
 QuestionCard.propTypes = {
     question: PropTypes.string.isRequired,
     timestamp: PropTypes.string,
-    choices: PropTypes.array.isRequired,
+    choices: PropTypes.number.isRequired,
     url: PropTypes.string.isRequired
 }
 
 QuestionCard.defaultProps = {
     question: '',
-    choices: [],
+    choices: 0,
     url: ''
 }
 

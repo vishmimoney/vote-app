@@ -54,7 +54,7 @@ class QuestionDetails extends Component {
                 </div>
 
                 <div className="section">
-                    <h5>Choose your answer:</h5>
+                    <h5>Choose your choice:</h5>
                 </div>
                 <StyledChoiceCollection className="row collection">
                     {

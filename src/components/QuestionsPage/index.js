@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getQuestions } from '../../actions';
+import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import QuestionCard from './QuestionCard';
 import moment from 'moment';
 
-const StyledNewButton = styled.a`
+const StyledNewButton = styled(Link)`
    @media only screen and (min-width: 600px) {
         margin-top: 32px;
 }`;
@@ -25,7 +26,7 @@ class QuestionsPage extends Component {
                         <h3 className="teal-text text-darken-4 left">Questions</h3>
                     </div>
                     <div className="col s4 m4 offset-m4">
-                        <StyledNewButton className="cyan darken-4 white-text waves-effect waves-light btn btn-block right">
+                        <StyledNewButton to="/question/new" className="cyan darken-4 white-text waves-effect waves-light btn btn-block right">
                             <i className="material-icons left">add</i> New Question
                         </StyledNewButton>
                     </div>
