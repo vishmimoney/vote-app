@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 const StyledChoiceRow = styled.div`
@@ -40,5 +41,20 @@ class Choice extends Component {
         );
     }
 }
+
+Choice.propTypes = {
+    choice: PropTypes.string.isRequired,
+    votes: PropTypes.number,
+    votesPercentage: PropTypes.number,
+    selected: PropTypes.bool.isRequired,
+    onSelect: PropTypes.func.isRequired
+};
+
+Choice.defaultProps = {
+    choice: '',
+    votes: 0,
+    votesPercentage: 0,
+    selected: false
+};
 
 export default Choice;

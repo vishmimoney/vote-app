@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getQuestions } from '../../actions';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import QuestionCard from './QuestionCard';
 import moment from 'moment';
@@ -48,6 +49,15 @@ class QuestionsPage extends Component {
         );
     }
 }
+
+QuestionsPage.propTypes = {
+    questions: PropTypes.array.isRequired,
+    getQuestions: PropTypes.func.isRequired
+};
+
+QuestionsPage.defaultProps = {
+    questions: []
+};
 
 const mapStateToProps = (state) => {
     return { questions: state.questions };

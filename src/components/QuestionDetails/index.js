@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { getQuestionDetails, selectChoice, saveVote } from '../../actions';
 import Choice from './Choice';
 import styled from 'styled-components';
+import materialize from 'materialize-css/dist/js/materialize.min';
 
 const StyledQuestionText = styled.h6`
     padding: 10px 0;
@@ -33,9 +34,12 @@ class QuestionDetails extends Component {
         const vote = this.props.questionDetails.choices.find(choice => choice.selected);
         if(vote){
             this.props.saveVote(vote);
+            /* displaying toaster message before saveVote action completes. can be improved to
+               display toaster after the async action is completed. */
+            materialize.toast({ html: 'Thanks for voting!'});
         }
         else{
-            alert("Please select a choice to vote");
+            materialize.toast({ html: 'Please select a choice to vote' });
         }
     }
 
@@ -69,7 +73,8 @@ class QuestionDetails extends Component {
                     }
                 </StyledChoiceCollection>
                 <StyledActionPanel className="col m12 center">
-                    <a className="white-text  waves-effect waves-light btn" onClick={this.saveVote}>
+                    { /* eslint-disable-next-line */ }
+                    <a className="white-text btn" onClick={this.saveVote}>
                         <i className="material-icons left">save</i>
                         Save vote
                     </a>
@@ -80,15 +85,17 @@ class QuestionDetails extends Component {
 }
 
 QuestionDetails.propTypes = {
-    questionDetails: PropTypes.object.isRequired
-}
+    questionDetails: PropTypes.object.isRequired,
+    selectChoice: PropTypes.func.isRequired,
+    getQuestionDetails: PropTypes.func.isRequired
+};
 
 QuestionDetails.defaultProps = {
     questionDetails: {}
-}
+};
 
 const mapStateToProps = (state) => {
     return { questionDetails: state.questionDetails };
-}
+};
 
 export default connect(mapStateToProps, { getQuestionDetails, selectChoice, saveVote })(QuestionDetails);

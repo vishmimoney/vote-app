@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 
@@ -43,6 +44,19 @@ class QuestionCard extends Component {
             </StyledCard>
         );
     }
+}
+
+QuestionCard.propTypes = {
+    question: PropTypes.string.isRequired,
+    timestamp: PropTypes.string,
+    choices: PropTypes.array.isRequired,
+    url: PropTypes.string.isRequired
+}
+
+QuestionCard.defaultProps = {
+    question: '',
+    choices: [],
+    url: ''
 }
 
 export default QuestionCard;
