@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {createQuestion, questionFieldChange, addChoice } from '../../actions';
 import materialize from 'materialize-css/dist/js/materialize.min';
 
@@ -69,6 +70,17 @@ class CreateQuestion extends Component {
             </div>
         );
     }
+}
+
+CreateQuestion.propTypes = {
+    draftQuestion: PropTypes.object.isRequired,
+    createQuestion: PropTypes.func.isRequired,
+    questionFieldChange: PropTypes.func.isRequired,
+    addChoice: PropTypes.func.isRequired
+}
+
+CreateQuestion.defaultProps = {
+    draftQuestion: {}
 }
 
 const mapStateToProps = (state) => {

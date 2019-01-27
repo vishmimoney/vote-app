@@ -60,7 +60,7 @@ const questionDetailsReducer = (state = initialState.questionDetails, action) =>
 
             return Object.assign({}, state, { choices: choiceSelections });
         case SAVE_VOTE:
-            const totalVotes = state.choices.reduce((result, choice) =>
+            let totalVotes = state.choices.reduce((result, choice) =>
                     result + choice.votes, 0
                 );
                 
@@ -68,7 +68,9 @@ const questionDetailsReducer = (state = initialState.questionDetails, action) =>
                 if(choice.url === action.vote.url) {
                      choice.votes = action.vote.votes;
                 }
-                choice.votePercent = (totalVotes && Math.round((choice.votes / (totalVotes + 1)) * 100)) || 0;
+                //calculte percentage for each choice after total votes increment
+                totalVotes += 1;
+                choice.votePercent = (totalVotes && Math.round((choice.votes / (totalVotes)) * 100)) || 0;
         
                 return choice;
             });
