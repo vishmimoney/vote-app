@@ -9,11 +9,12 @@ const StyledChoiceRow = styled.div`
         background-color: #00897b !important;
         color: white
     `}
-`
+`;
+
 const StyledVotePercent = styled.div`
     height: 8px;
     margin: .5rem 0 0.5rem 0;
-`
+`;
 class Choice extends Component {
     constructor(props) {
         super(props);

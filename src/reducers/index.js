@@ -1,5 +1,9 @@
 import { combineReducers } from "redux";
-import { GET_QUESTIONS, GET_QUESTION_DETAILS, SELECT_CHOICE } from '../actions';
+import { 
+    GET_QUESTIONS, 
+    GET_QUESTION_DETAILS, 
+    SELECT_CHOICE, 
+    SAVE_VOTE } from '../actions';
 
 const initialState = {
     questions: [],
@@ -48,7 +52,22 @@ const questionDetailsReducer = (state = initialState.questionDetails, action) =>
                 return choice;
             });
 
-            return Object.assign({}, state, { choices: choiceSelections });    
+            return Object.assign({}, state, { choices: choiceSelections });
+        case SAVE_VOTE:
+            const totalVotes = state.choices.reduce((result, choice) =>
+                    result + choice.votes, 0
+                );
+                
+            const updatedVotes = state.choices.map(choice => {
+                if(choice.url === action.vote.url) {
+                     choice.votes = action.vote.votes;
+                     choice.votePercent = (totalVotes && Math.round((choice.votes / totalVotes) * 100)) || 0;
+                }
+        
+                return choice;
+            });
+
+            return Object.assign({}, state, { choices: updatedVotes }); 
         default:
             return state;    
     }
