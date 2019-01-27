@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import {createQuestion, questionFieldChange, addChoice } from '../../actions';
+import materialize from 'materialize-css/dist/js/materialize.min';
 
 class CreateQuestion extends Component {
     constructor(props) {
@@ -24,6 +25,9 @@ class CreateQuestion extends Component {
 
     createQuestion() {
         this.props.createQuestion(this.props.draftQuestion);
+     /* displaying toaster message before createQuestion action completes. can be improved to
+        display toaster after the async action is completed. */
+        materialize.toast({ html: 'Question created successfully!'});
     }
 
     render() {
