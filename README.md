@@ -18,5 +18,13 @@ Improvements
 * Create a production build as an npm script.
 * Componenents can be further broken in to smaller components.
 * Fine-grained error handling with componentDidCatch lifecycle hook.
+* Question cards in question list page can be in fixed height.(Styling improvemnt)
 
+Screenshots
+------------
 
+![Questions_List](./docs/questions_list_page.png)
+
+![Question_Details](./docs/question_details.png)
+
+![Create_Question](./docs/create_question.png)
