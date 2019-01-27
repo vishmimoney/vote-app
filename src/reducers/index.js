@@ -3,11 +3,18 @@ import {
     GET_QUESTIONS, 
     GET_QUESTION_DETAILS, 
     SELECT_CHOICE, 
-    SAVE_VOTE } from '../actions';
+    SAVE_VOTE,
+    CREATE_QUESTION,
+    QUESTION_FIELD_CHANGE,
+    ADD_CHOICE } from '../actions';
 
 const initialState = {
     questions: [],
-    questionDetails: {}
+    questionDetails: {},
+    draftQuestion: {
+        question: '',
+        choices: []
+    }
 };
 
 const questionsListReducer = (state = initialState.questions, action) => {
@@ -17,8 +24,7 @@ const questionsListReducer = (state = initialState.questions, action) => {
         default:
            return state;
     }
-
-}
+};
 
 const questionDetailsReducer = (state = initialState.questionDetails, action) => {
     switch(action.type) {
@@ -71,11 +77,26 @@ const questionDetailsReducer = (state = initialState.questionDetails, action) =>
         default:
             return state;    
     }
+};
+
+const createQuestionReducer = (state = initialState.draftQuestion, action) => {
+    switch (action.type) {
+        case CREATE_QUESTION:
+            return initialState.draftQuestion;
+        case QUESTION_FIELD_CHANGE:
+            return Object.assign({}, state, {question: action.questionText});
+        case ADD_CHOICE:
+            return Object.assign({}, state, {choices: [...state.choices, action.choice]});   
+        default:
+           return state;
+    }
+
 }
 
 const rootReducer = combineReducers({
     questions: questionsListReducer,
-    questionDetails: questionDetailsReducer
+    questionDetails: questionDetailsReducer,
+    draftQuestion: createQuestionReducer
 });
 
 export default rootReducer;
